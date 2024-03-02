@@ -1,7 +1,7 @@
-package org.polyfrost.example.hud;
+package AutoDodge.hud;
 
+import AutoDodge.config.TestConfig;
 import cc.polyfrost.oneconfig.hud.SingleTextHud;
-import org.polyfrost.example.config.TestConfig;
 
 /**
  * An example OneConfig HUD that is started in the config and displays text.

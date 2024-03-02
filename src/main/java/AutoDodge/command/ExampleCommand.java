@@ -1,6 +1,6 @@
-package org.polyfrost.example.command;
+package AutoDodge.command;
 
-import org.polyfrost.example.ExampleMod;
+import AutoDodge.AutoDodge;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 
@@ -10,12 +10,12 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
  *
  * @see Command
  * @see Main
- * @see ExampleMod
+ * @see AutoDodge
  */
-@Command(value = ExampleMod.MODID, description = "Access the " + ExampleMod.NAME + " GUI.")
+@Command(value = AutoDodge.MODID, description = "Access the " + AutoDodge.NAME + " GUI.")
 public class ExampleCommand {
     @Main
     private void handle() {
-        ExampleMod.INSTANCE.config.openGui();
+        AutoDodge.INSTANCE.config.openGui();
     }
 }
