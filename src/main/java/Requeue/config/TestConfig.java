@@ -75,13 +75,6 @@ public class TestConfig extends Config {
         notify("You have selected a new latest.log.");
     }
 
-    @Text(
-            name = "Hypixel IP",
-            placeholder = "Hypixel IP",        // optional, text to display when there is nothing written there
-            secure = false, multiline = false, size = OptionSize.DUAL
-    )
-    public static String IP = "";
-
     public TestConfig() {
         super(new Mod(Requeue.NAME, ModType.UTIL_QOL), Requeue.MODID + ".json");
         initialize();
