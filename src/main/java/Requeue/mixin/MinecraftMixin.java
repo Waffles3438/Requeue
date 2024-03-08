@@ -1,4 +1,4 @@
-package AutoDodge.mixin;
+package Requeue.mixin;
 
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;

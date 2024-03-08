@@ -1,14 +1,16 @@
-package AutoDodge;
+package Requeue;
 
-import AutoDodge.config.TestConfig;
+import Requeue.config.TestConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.utils.Notifications;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,14 +21,14 @@ import java.io.IOException;
  * @see Mod
  * @see InitializationEvent
  */
-@Mod(modid = AutoDodge.MODID, name = AutoDodge.NAME, version = AutoDodge.VERSION)
-public class AutoDodge {
+@Mod(modid = Requeue.MODID, name = Requeue.NAME, version = Requeue.VERSION)
+public class Requeue {
     public static final String MODID = "@ID@";
     public static final String NAME = "@NAME@";
     public static final String VERSION = "@VER@";
     // Sets the variables from `gradle.properties`. See the `blossom` config in `build.gradle.kts`.
     @Mod.Instance(MODID)
-    public static AutoDodge INSTANCE; // Adds the instance of the mod, so we can access other variables.
+    public static Requeue INSTANCE; // Adds the instance of the mod, so we can access other variables.
     public static TestConfig config;
 
     // Register the config and commands.
@@ -36,16 +38,37 @@ public class AutoDodge {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    private boolean ready = false;
+    private int counter = 0;
+    private int b = TestConfig.intTest;
+    private int origin = b;
+    private int a = TestConfig.delay;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
-        String line = getLastLineOfFile(TestConfig.LogPath);
-        if(line != null){
-            line = line.substring(11);
-            if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
-                UChat.say(TestConfig.rq);
+        if(!TestConfig.LogPath.isEmpty()){
+            String line = getLastLineOfFile(TestConfig.LogPath);
+            if(line != null){
+                line = line.substring(11);
+                if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
+                    ready = true;
+                }
             }
-        } else if(line == null){
-            notify("You must select a latest.log file");
+            if(ready){
+                Minecraft.getMinecraft().ingameGUI.displayTitle(String.valueOf(b), "",  1, 1, 1);
+                counter++;
+                if(counter == 40) {
+                    b--;
+                    counter = 0;
+                }
+                if(b == 0){
+                    UChat.say(TestConfig.rq);
+                    b = origin;
+                    counter = 0;
+                    ready = false;
+                }
+            }
+        } else if (TestConfig.LogPath.isEmpty()) {
+            notify("You must select a latest.log!");
         }
     }
 
@@ -76,6 +99,6 @@ public class AutoDodge {
     }
 
     private void notify(String message) {
-        Notifications.INSTANCE.send("AutoDodge", message);
+        Notifications.INSTANCE.send("Requeue", message);
     }
 }

@@ -1,6 +1,6 @@
-package AutoDodge.hud;
+package Requeue.hud;
 
-import AutoDodge.config.TestConfig;
+import Requeue.config.TestConfig;
 import cc.polyfrost.oneconfig.hud.SingleTextHud;
 
 /**

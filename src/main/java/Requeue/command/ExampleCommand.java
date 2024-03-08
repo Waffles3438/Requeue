@@ -1,6 +1,6 @@
-package AutoDodge.command;
+package Requeue.command;
 
-import AutoDodge.AutoDodge;
+import Requeue.Requeue;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 
@@ -10,12 +10,12 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
  *
  * @see Command
  * @see Main
- * @see AutoDodge
+ * @see Requeue
  */
-@Command(value = AutoDodge.MODID, description = "Access the " + AutoDodge.NAME + " GUI.")
+@Command(value = Requeue.MODID, description = "Access the " + Requeue.NAME + " GUI.")
 public class ExampleCommand {
     @Main
     private void handle() {
-        AutoDodge.INSTANCE.config.openGui();
+        Requeue.INSTANCE.config.openGui();
     }
 }

@@ -1,6 +1,6 @@
-package AutoDodge.config;
+package Requeue.config;
 
-import AutoDodge.AutoDodge;
+import Requeue.Requeue;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Button;
 import cc.polyfrost.oneconfig.config.annotations.Slider;
@@ -34,7 +34,9 @@ public class TestConfig extends Config {
             // giving it little steps that the slider snaps to.
             step = 1
     )
-    public static float delay = 5f; // default value
+    public static float test = 5f; // default value
+    public static int intTest = (int) test;
+    public static int delay = (int) (40 * test);
 
     @Button(name = "latest.log location",
             text = "Browse",
@@ -42,7 +44,7 @@ public class TestConfig extends Config {
     public Runnable logButton = this::browse;
 
     private void notify(String message) {
-        Notifications.INSTANCE.send("AutoDodge", message);
+        Notifications.INSTANCE.send("Requeue", message);
     }
 
     private boolean refreshed = false;
@@ -73,8 +75,15 @@ public class TestConfig extends Config {
         notify("You have selected a new latest.log.");
     }
 
+    @Text(
+            name = "Hypixel IP",
+            placeholder = "Hypixel IP",        // optional, text to display when there is nothing written there
+            secure = false, multiline = false, size = OptionSize.DUAL
+    )
+    public static String IP = "";
+
     public TestConfig() {
-        super(new Mod(AutoDodge.NAME, ModType.UTIL_QOL), AutoDodge.MODID + ".json");
+        super(new Mod(Requeue.NAME, ModType.UTIL_QOL), Requeue.MODID + ".json");
         initialize();
     }
 }
