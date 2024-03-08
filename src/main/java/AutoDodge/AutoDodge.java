@@ -3,13 +3,12 @@ package AutoDodge;
 import AutoDodge.config.TestConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
-import jdk.incubator.vector.VectorOperators;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import java.util.concurrent.TimeUnit;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,12 +37,11 @@ public class AutoDodge {
     }
 
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) throws InterruptedException {
-        String line = getLastLineOfFile(TestConfig.log);
+    public void onClientTick(TickEvent.ClientTickEvent event){
+        String line = getLastLineOfFile(TestConfig.LogPath);
         line = line.substring(11);
         line = removeLastWords(line, 44);
         if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
-            TimeUnit.SECONDS.sleep((int) TestConfig.delay);
             UChat.say(TestConfig.rq);
         }
     }
