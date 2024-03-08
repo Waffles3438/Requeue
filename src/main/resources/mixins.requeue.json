@@ -2,7 +2,7 @@
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.7",
   "package": "Requeue.mixin",
-  "refmap": "mixins.Requeue.refmap.json",
+  "refmap": "mixins.requeue.refmap.json",
   "injectors": {
     "maxShiftBy": 5
   },
