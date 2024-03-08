@@ -1,13 +1,13 @@
 {
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.7",
-  "package": "Requeue",
+  "package": "Requeue.mixin",
   "refmap": "mixins.Requeue.refmap.json",
   "injectors": {
     "maxShiftBy": 5
   },
   "client": [
-    "Requeue.mixin.MinecraftMixin"
+    "MinecraftMixin"
   ],
   "verbose": true
 }
