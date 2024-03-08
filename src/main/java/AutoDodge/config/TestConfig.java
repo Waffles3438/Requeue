@@ -46,7 +46,7 @@ public class TestConfig extends Config {
     }
 
     private boolean refreshed = false;
-    public static String LogPath = "C:\\Users\\%userprofile%\\AppData\\Roaming\\PrismLauncher\\instances\\OneConfig\\.minecraft\\logs\\latest.log";
+    public static String LogPath = "";
     private void browse() {
         notify("A file dialogue has opened. You may need to tab out to see it.");
 

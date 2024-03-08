@@ -3,12 +3,12 @@ package AutoDodge;
 import AutoDodge.config.TestConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
+import cc.polyfrost.oneconfig.utils.Notifications;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,10 +39,13 @@ public class AutoDodge {
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
         String line = getLastLineOfFile(TestConfig.LogPath);
-        line = line.substring(11);
-        line = removeLastWords(line, 44);
-        if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
-            UChat.say(TestConfig.rq);
+        if(line != null){
+            line = line.substring(11);
+            if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
+                UChat.say(TestConfig.rq);
+            }
+        } else if(line == null){
+            notify("You must select a latest.log file");
         }
     }
 
@@ -70,5 +73,9 @@ public class AutoDodge {
                 return ""; // Handle case where no space found
             }
         }
+    }
+
+    private void notify(String message) {
+        Notifications.INSTANCE.send("AutoDodge", message);
     }
 }
