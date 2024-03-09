@@ -53,8 +53,7 @@ public class Requeue {
     private String line;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
-        b = TestConfig.intTest;
-        origin = b;
+
         line = getLastLineOfFile(TestConfig.LogPath);
         if(!TestConfig.LogPath.isEmpty()){
             line = getLastLineOfFile(TestConfig.LogPath);
@@ -64,6 +63,8 @@ public class Requeue {
                 // line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")
                 if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
                     ready = true;
+                    b = TestConfig.intTest;
+                    origin = b;
                     Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
                 }
             }
