@@ -74,7 +74,7 @@ public class Requeue {
                     Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
                     counter = 0;
                 }
-                if(b == 0){
+                if(b == 0 && Minecraft.getMinecraft().theWorld != null){
                     Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing...", "",  1, 1, 1);
                     UChat.say(TestConfig.rq);
                     b = origin;
