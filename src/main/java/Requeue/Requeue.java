@@ -53,43 +53,41 @@ public class Requeue {
     private String line;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
-        if(event.phase.equals(TickEvent.Phase.START)){
+        line = getLastLineOfFile(TestConfig.LogPath);
+        if(!TestConfig.LogPath.isEmpty()){
             line = getLastLineOfFile(TestConfig.LogPath);
-            if(!TestConfig.LogPath.isEmpty()){
-                line = getLastLineOfFile(TestConfig.LogPath);
-                if(line != null){
-                    line = line.substring(11);
-                    line = removeLastWords(line, 44);
-                    if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
-                        ready = true;
-                        b = TestConfig.intTest;
-                        origin = b;
-                        Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
-                    }
-                }
-                if(ready){
-                    counter++;
-                    if(counter == 20) {
-                        b--;
-                        Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
-                        counter = 0;
-                    }
-                    if(b == 0 && Minecraft.getMinecraft().theWorld != null){
-                        Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing...", "",  1, 1, 1);
-                        UChat.say(TestConfig.rq);
-                        b = origin;
-                        counter = 0;
-                        ready = false;
-                    } else if(b == 0){
-                        b = origin;
-                        counter = 0;
-                        ready = false;
-                    }
+            if(line != null){
+                line = line.substring(11);
+                line = removeLastWords(line, 44);
+                if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
+                    ready = true;
+                    b = TestConfig.intTest;
+                    origin = b;
+                    Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
                 }
             }
-            else if (TestConfig.LogPath.isEmpty()) {
-                notify("You must select a latest.log!");
+            if(ready){
+                counter++;
+                if(counter == 40) {
+                    b--;
+                    Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
+                    counter = 0;
+                }
+                if(b == 0 && Minecraft.getMinecraft().theWorld != null){
+                    Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing...", "",  1, 1, 1);
+                    UChat.say(TestConfig.rq);
+                    b = origin;
+                    counter = 0;
+                    ready = false;
+                } else if(b == 0){
+                    b = origin;
+                    counter = 0;
+                    ready = false;
+                }
             }
+        }
+        else if (TestConfig.LogPath.isEmpty()) {
+            notify("You must select a latest.log!");
         }
     }
 
