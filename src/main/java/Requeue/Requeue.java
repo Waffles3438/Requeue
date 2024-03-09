@@ -1,9 +1,11 @@
 package Requeue;
 
+import Requeue.command.Cancel;
 import Requeue.config.TestConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.utils.Notifications;
+import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -31,47 +33,57 @@ public class Requeue {
     public static Requeue INSTANCE; // Adds the instance of the mod, so we can access other variables.
     public static TestConfig config;
 
-    public boolean notified = false;
-
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
         config = new TestConfig();
         MinecraftForge.EVENT_BUS.register(this);
+        CommandManager.INSTANCE.registerCommand(new Cancel());
+        CommandManager.register(new Cancel());
     }
 
+    public static boolean ready = false;
+
+    public static void setReady(boolean p){
+        ready = p;
+    }
+    private int counter = 0;
+    private int b = TestConfig.intTest;
+    private int origin = b;
+    private int a = TestConfig.delay;
+    private String line;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
-        boolean ready = false;
-        int counter = 0;
-        int b = TestConfig.intTest;
-        int origin = b;
-        int a = TestConfig.delay;
+        line = getLastLineOfFile(TestConfig.LogPath);
         if(!TestConfig.LogPath.isEmpty()){
-            String line = getLastLineOfFile(TestConfig.LogPath);
+            line = getLastLineOfFile(TestConfig.LogPath);
             if(line != null){
-                line = line.substring(11);
+                 line = line.substring(11);
+                 line = removeLastWords(line, 44);
+                // line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")
                 if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
                     ready = true;
+                    Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
                 }
             }
             if(ready){
-                Minecraft.getMinecraft().ingameGUI.displayTitle(String.valueOf(b), "",  1, 1, 1);
                 counter++;
                 if(counter == 40) {
                     b--;
+                    Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
                     counter = 0;
                 }
                 if(b == 0){
+                    Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing...", "",  1, 1, 1);
                     UChat.say(TestConfig.rq);
                     b = origin;
                     counter = 0;
                     ready = false;
                 }
             }
-        } else if (TestConfig.LogPath.isEmpty() && !notified) {
+        }
+        else if (TestConfig.LogPath.isEmpty()) {
             notify("You must select a latest.log!");
-            notified = true;
         }
     }
 
