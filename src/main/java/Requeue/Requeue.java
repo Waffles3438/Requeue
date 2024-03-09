@@ -56,7 +56,7 @@ public class Requeue {
         line = getLastLineOfFile(TestConfig.LogPath);
         if(!TestConfig.LogPath.isEmpty()){
             line = getLastLineOfFile(TestConfig.LogPath);
-            if(line != null){
+            if(line != null && line.length() > 60){
                 line = line.substring(11);
                 line = removeLastWords(line, 44);
                 if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
