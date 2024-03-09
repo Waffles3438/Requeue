@@ -31,6 +31,8 @@ public class Requeue {
     public static Requeue INSTANCE; // Adds the instance of the mod, so we can access other variables.
     public static TestConfig config;
 
+    public boolean notified = false;
+
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
@@ -38,13 +40,13 @@ public class Requeue {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private boolean ready = false;
-    private int counter = 0;
-    private int b = TestConfig.intTest;
-    private int origin = b;
-    private int a = TestConfig.delay;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
+        boolean ready = false;
+        int counter = 0;
+        int b = TestConfig.intTest;
+        int origin = b;
+        int a = TestConfig.delay;
         if(!TestConfig.LogPath.isEmpty()){
             String line = getLastLineOfFile(TestConfig.LogPath);
             if(line != null){
@@ -67,8 +69,9 @@ public class Requeue {
                     ready = false;
                 }
             }
-        } else if (TestConfig.LogPath.isEmpty()) {
+        } else if (TestConfig.LogPath.isEmpty() && !notified) {
             notify("You must select a latest.log!");
+            notified = true;
         }
     }
 

@@ -72,7 +72,7 @@ public class TestConfig extends Config {
 
         this.LogPath = LogPath;
         refreshed = false;
-        notify("You have selected a new latest.log.");
+        notify("Your latest.log file is at : " + LogPath);
     }
 
     public TestConfig() {
