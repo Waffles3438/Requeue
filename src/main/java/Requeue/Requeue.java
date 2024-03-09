@@ -48,12 +48,13 @@ public class Requeue {
         ready = p;
     }
     private int counter = 0;
-    private int b = TestConfig.intTest;
-    private int origin = b;
-    private int a = TestConfig.delay;
+    private int b;
+    private int origin;
     private String line;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
+        b = TestConfig.intTest;
+        origin = b;
         line = getLastLineOfFile(TestConfig.LogPath);
         if(!TestConfig.LogPath.isEmpty()){
             line = getLastLineOfFile(TestConfig.LogPath);

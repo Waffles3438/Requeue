@@ -36,7 +36,6 @@ public class TestConfig extends Config {
     )
     public static float test = 5f; // default value
     public static int intTest = (int) test;
-    public static int delay = (int) (40 * test);
 
     @Button(name = "latest.log location",
             text = "Browse",
