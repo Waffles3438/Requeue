@@ -49,7 +49,6 @@ public class Requeue {
     }
     private int counter = 0;
     private int b;
-    private int origin;
     private String line;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event){
@@ -61,8 +60,7 @@ public class Requeue {
                 line = removeLastWords(line, 44);
                 if(line.equals("[Client thread/INFO]: [CHAT] Lilith > Dodged")){
                     ready = true;
-                    b = TestConfig.intTest;
-                    origin = b;
+                    b = TestConfig.test;
                     Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing in: " + String.valueOf(b), "",  1, 1, 1);
                 }
             }
@@ -76,11 +74,11 @@ public class Requeue {
                 if(b == 0 && Minecraft.getMinecraft().theWorld != null){
                     Minecraft.getMinecraft().ingameGUI.displayTitle("Requeuing...", "",  1, 1, 1);
                     UChat.say(TestConfig.rq);
-                    b = origin;
+                    b = TestConfig.test;
                     counter = 0;
                     ready = false;
                 } else if(b == 0){
-                    b = origin;
+                    b = TestConfig.test;
                     counter = 0;
                     ready = false;
                 }

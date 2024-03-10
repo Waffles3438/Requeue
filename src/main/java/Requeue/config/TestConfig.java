@@ -34,8 +34,7 @@ public class TestConfig extends Config {
             // giving it little steps that the slider snaps to.
             step = 1
     )
-    public static float test = 5f; // default value
-    public static int intTest = (int) test;
+    public static int test = (int) 5f; // default value
 
     @Button(name = "latest.log location",
             text = "Browse",
