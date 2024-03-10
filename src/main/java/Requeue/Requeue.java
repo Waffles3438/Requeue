@@ -40,6 +40,9 @@ public class Requeue {
         MinecraftForge.EVENT_BUS.register(this);
         CommandManager.INSTANCE.registerCommand(new Cancel());
         CommandManager.register(new Cancel());
+        if (TestConfig.LogPath.isEmpty()) {
+            notify("You must select a latest.log!");
+        }
     }
 
     public static boolean ready = false;
@@ -84,9 +87,7 @@ public class Requeue {
                 }
             }
         }
-        else if (TestConfig.LogPath.isEmpty()) {
-            notify("You must select a latest.log!");
-        }
+
     }
 
     public static String getLastLineOfFile(String filePath) {
