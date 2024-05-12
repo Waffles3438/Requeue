@@ -1,5 +1,7 @@
 # Requeue
 
+Screw paying for Lilith pro for autododge
+
 ## How to use
 
 - Must use lilith
